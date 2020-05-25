@@ -1,16 +1,20 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
+import java.util.Set;
 
 public class MainMenu {
 	static Scanner input = new Scanner(System.in);
-	static ArrayList<Integer> data = new ArrayList<Integer>();  
+	static ArrayList<Integer> data = new ArrayList<Integer>();
 
 	public MainMenu() {
 		try {
@@ -18,11 +22,11 @@ public class MainMenu {
 			int option;
 			while (userSelection != 3) {
 				generateData(userSelection);
-                option = displayOption();
-				while (option != 8) {
-				performOperation(option);
-				System.out.println("\n\n\n---------------Continue------------------");
 				option = displayOption();
+				while (option != 8) {
+					performOperation(option);
+					System.out.println("\n\n\n---------------Continue------------------");
+					option = displayOption();
 				}
 				System.out.println("\n\n\n---------------Continue------------------");
 				userSelection = displayMainMenu();
@@ -103,43 +107,82 @@ public class MainMenu {
 
 	private static void findMinValue() {
 		// TODO Auto-generated method stub
-	  int min=Integer.MAX_VALUE;
-	  for(int i=0; i < data.size(); i++) {
-	    if(min>data.get(i)) {
-	      min= data.get(i);
-	    }
-	  }
-	  System.out.println("Mininum Value:"+min);
+		int min = Integer.MAX_VALUE;
+		for (int i = 0; i < data.size(); i++) {
+			if (min > data.get(i)) {
+				min = data.get(i);
+			}
+		}
+		System.out.println("Mininum Value:" + min);
 	}
 
 	private static void findMaxValue() {
 		// TODO Auto-generated method stub
-	  int max=Integer.MIN_VALUE;
-      for(int i=0; i < data.size(); i++) {
-        if(max<data.get(i)) {
-          max= data.get(i);
-        }
-      }
-      System.out.println("Maximum Value:"+max);
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < data.size(); i++) {
+			if (max < data.get(i)) {
+				max = data.get(i);
+			}
+		}
+		System.out.println("Maximum Value:" + max);
 	}
 
 	private static void findMode() {
 		// TODO Auto-generated method stub
+		HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>();
+		for (Integer integer : data) {
+			if (hashMap.containsKey(integer)) {
+				hashMap.put(integer, (int) hashMap.get(integer) + 1);
+			} else
+				hashMap.put(integer, 1);
+		}
 
+		Comparator<Entry<Integer, Integer>> valueComparator = new Comparator<Entry<Integer, Integer>>() {
+			@Override
+			public int compare(Entry<Integer, Integer> e1, Entry<Integer, Integer> e2) {
+				Integer v1 = e1.getValue();
+				Integer v2 = e2.getValue();
+				return v2.compareTo(v1);
+			}
+		};
+
+		List<Entry<Integer, Integer>> listOfEntries = new ArrayList<Entry<Integer, Integer>>(hashMap.entrySet());
+		Collections.sort(listOfEntries, valueComparator);
+		LinkedHashMap<Integer, Integer> sortedByValue = new LinkedHashMap<Integer, Integer>(listOfEntries.size());
+		for (Entry<Integer, Integer> entry : listOfEntries) {
+			sortedByValue.put(entry.getKey(), entry.getValue());
+		}
+		int highestFrequency = sortedByValue.get(listOfEntries.get(0).getKey());
+		int lowestFrequency = sortedByValue.get(listOfEntries.get(listOfEntries.size() - 1).getKey());
+		if (highestFrequency == lowestFrequency) {
+			System.out.println("0");
+		}
+		Set<Entry<Integer, Integer>> entrySetSortedByValue = sortedByValue.entrySet();
+		String output = "";
+		for (Entry<Integer, Integer> mapping : entrySetSortedByValue) {
+			if (mapping.getValue() == highestFrequency)
+				output = output.concat(mapping.getKey() + ",");
+		}
+		System.out.println("Mode Value: " + output.substring(0, output.length() - 1));
 	}
 
 	private static void findMedian() {
 		// TODO Auto-generated method stub
-
+		Collections.sort(data);
+		if (data.size() % 2 == 0) {
+			System.out.println("Median Value: " + (data.get(data.size() / 2) + data.get((data.size() / 2) - 1) / 2));
+		} else {
+			System.out.println("Median Value: " + data.get(data.size() / 2));
+		}
 	}
 
 	private static void findMean() {
 		// TODO Auto-generated method stub
-	  int mean=0;
-      for(int i=0; i < data.size(); i++) {
-       mean+= data.get(i);
-      }
-      System.out.println("Mean Value:"+(mean/data.size()));
+		int mean = 0;
+		for (int i = 0; i < data.size(); i++) {
+			mean += data.get(i);
+		}
+		System.out.println("Mean Value:" + (mean / data.size()));
 	}
 
 	private static void findSampleStandardDeviation() {
@@ -153,35 +196,35 @@ public class MainMenu {
 	}
 
 	public static void generateData(int option) {
-	  switch(option) {
-	    case 1:
-	    {
-	      System.out.print("Enter file name with its location:");
-	      String fileName=input.next();
-	      File file = new File(fileName); 
-	      try {
-	        BufferedReader br = new BufferedReader(new FileReader(file)); 
-	        String a; 
-	        while ((a = br.readLine()) != null) 
-	            System.out.println(a);
-	      }catch (Exception e) {
-            // TODO: handle exception
-	        e.printStackTrace();;
-          }
-	      
-        }
-	       
-	    case 2:{
-	      Random rand = new Random();
-	      int upperbound = 1000;
-	      int i=0;
-	      while(i<upperbound) {
-	        data.add(rand.nextInt(upperbound));
-	        i++;
-	      }
-//	      System.out.println(data);
-	      }
-	    }
+		switch (option) {
+		case 1:
+			System.out.print("Enter file name with its location:");
+			String fileName = input.next();
+			File file = new File(fileName);
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(file));
+				String a;
+				while ((a = br.readLine()) != null)
+					System.out.println(a);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+
+			}
+
+			break;
+
+		case 2:
+			Random rand = new Random();
+			int upperbound = 1000;
+			int i = 0;
+			while (i < upperbound) {
+				data.add(rand.nextInt(upperbound));
+				i++;
+			}
+			System.out.println(data);
+			break;
+		}
 	}
 
 	public static void main(String[] args) {
