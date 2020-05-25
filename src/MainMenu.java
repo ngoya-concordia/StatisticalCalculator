@@ -1,19 +1,26 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class MainMenu {
-	Scanner input = new Scanner(System.in);
+	static Scanner input = new Scanner(System.in);
+	static ArrayList<Integer> data = new ArrayList<Integer>();  
 
 	public MainMenu() {
 		try {
 			int userSelection = displayMainMenu();
 			int option;
 			while (userSelection != 3) {
-				option = displayOption();
 				generateData(userSelection);
+                option = displayOption();
 				while (option != 8) {
-					performOperation(option);
-					System.out.println("\n\n\n---------------Continue------------------");
-					option = displayOption();
+				performOperation(option);
+				System.out.println("\n\n\n---------------Continue------------------");
+				option = displayOption();
 				}
 				System.out.println("\n\n\n---------------Continue------------------");
 				userSelection = displayMainMenu();
@@ -128,7 +135,35 @@ public class MainMenu {
 	}
 
 	public static void generateData(int option) {
-
+	  switch(option) {
+	    case 1:
+	    {
+	      System.out.print("Enter file name with its location:");
+	      String fileName=input.next();
+	      File file = new File(fileName); 
+	      try {
+	        BufferedReader br = new BufferedReader(new FileReader(file)); 
+	        String a; 
+	        while ((a = br.readLine()) != null) 
+	            System.out.println(a);
+	      }catch (Exception e) {
+            // TODO: handle exception
+	        e.printStackTrace();;
+          }
+	      
+        }
+	       
+	    case 2:{
+	      Random rand = new Random();
+	      int upperbound = 1000;
+	      int i=0;
+	      while(i<upperbound) {
+	        data.add(rand.nextInt(upperbound));
+	        i++;
+	      }
+//	      System.out.println(data);
+	      }
+	    }
 	}
 
 	public static void main(String[] args) {
