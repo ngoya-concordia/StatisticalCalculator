@@ -51,9 +51,9 @@ public class MainMenu {
 		System.out.println("--------------------------------");
 		System.out.println("(1) Find Minimum value of the data.");
 		System.out.println("(2) Find Maximum value of the data");
-		System.out.println("(3) Find Mode of the data");
+		System.out.println("(3) Find Mean of the data");
 		System.out.println("(4) Find Median of the data");
-		System.out.println("(5) Find Mean of the data");
+		System.out.println("(5) Find Mode of the data");
 		System.out.println("(6) Find Standard Deviation of the data");
 		System.out.println("(7) Exit");
 		return input.nextInt();
@@ -69,7 +69,7 @@ public class MainMenu {
 			break;
 
 		case 3:
-			findMode();
+			findMean();
 			break;
 
 		case 4:
@@ -77,7 +77,7 @@ public class MainMenu {
 			break;
 
 		case 5:
-			findMean();
+			findMode();
 			break;
 
 		case 6:
