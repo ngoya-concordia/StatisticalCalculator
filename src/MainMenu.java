@@ -187,24 +187,6 @@ public class MainMenu {
 
 	private static void findSampleStandardDeviation() {
 		// TODO Auto-generated method stub
-		int mean = 0;
-		for (int i = 0; i < data.size(); i++) {
-			mean += data.get(i);
-		}
-		float meanvalue=(mean / data.size());
-		float absolute_mean=0;
-		float absolute;
-		for (int i = 0; i < data.size(); i++) 
-		{
-			absolute=(data.get(i)-meanvalue);
-			if(absolute<0)
-			{
-				absolute=absolute*(-1);
-			}
-			absolute_mean+=absolute;
-		}
-		System.out.println("Mean Absolute Deviation:" + (absolute_mean/data.size()));
-		
 
 	}
 
