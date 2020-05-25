@@ -60,9 +60,65 @@ public class MainMenu {
 	}
 	
 	public static void performOperation(int option) {
-		
+		switch (option) {
+		case 1:
+			findMinValue();
+			break;
+		case 2:
+			findMaxValue();
+			break;
+
+		case 3:
+			findMode();
+			break;
+
+		case 4:
+			findMedian();
+			break;
+
+		case 5:
+			findMean();
+			break;
+
+		case 6:
+			findStandardDeviation();
+			break;
+
+		default:
+			break;
+		}
 	}
 	
+	private static void findMinValue() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void findMaxValue() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void findMode() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void findMedian() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void findMean() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private static void findStandardDeviation() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void generateData(int option) {
 		
 	}
