@@ -2,9 +2,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
 
 public class MainMenu {
 	static Scanner input = new Scanner(System.in);
@@ -101,12 +103,24 @@ public class MainMenu {
 
 	private static void findMinValue() {
 		// TODO Auto-generated method stub
-
+	  int min=Integer.MAX_VALUE;
+	  for(int i=0; i < data.size(); i++) {
+	    if(min>data.get(i)) {
+	      min= data.get(i);
+	    }
+	  }
+	  System.out.println("Mininum Value:"+min);
 	}
 
 	private static void findMaxValue() {
 		// TODO Auto-generated method stub
-
+	  int max=Integer.MIN_VALUE;
+      for(int i=0; i < data.size(); i++) {
+        if(max<data.get(i)) {
+          max= data.get(i);
+        }
+      }
+      System.out.println("Maximum Value:"+max);
 	}
 
 	private static void findMode() {
@@ -121,7 +135,11 @@ public class MainMenu {
 
 	private static void findMean() {
 		// TODO Auto-generated method stub
-
+	  int mean=0;
+      for(int i=0; i < data.size(); i++) {
+       mean+= data.get(i);
+      }
+      System.out.println("Mean Value:"+(mean/data.size()));
 	}
 
 	private static void findSampleStandardDeviation() {
