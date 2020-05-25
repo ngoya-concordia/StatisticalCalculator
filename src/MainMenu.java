@@ -4,26 +4,26 @@ public class MainMenu {
 	Scanner input = new Scanner(System.in);
 
 	public MainMenu() {
-	try {
+		try {
 			int userSelection = displayMainMenu();
 			int option;
 			while (userSelection != 3) {
 				option = displayOption();
 				generateData(userSelection);
-				while (option != 7) {
-				performOperation(option);
-				System.out.println("\n\n\n---------------Continue------------------");
-				option = displayOption();
+				while (option != 8) {
+					performOperation(option);
+					System.out.println("\n\n\n---------------Continue------------------");
+					option = displayOption();
 				}
 				System.out.println("\n\n\n---------------Continue------------------");
 				userSelection = displayMainMenu();
 			}
-			System.out.println("\n\n--------------EXIT THE SYSTEM----------------");	
-	} catch (Exception e) {
-		e.printStackTrace();
-	} 
+			System.out.println("\n\n--------------EXIT THE SYSTEM----------------");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	/**
 	 * Display menu to the user
 	 * 
@@ -39,7 +39,7 @@ public class MainMenu {
 		System.out.print("Please provide your input from 1 to 3 : ");
 		return input.nextInt();
 	}
-	
+
 	/**
 	 * Display menu to the user
 	 * 
@@ -54,11 +54,12 @@ public class MainMenu {
 		System.out.println("(3) Find Mean of the data");
 		System.out.println("(4) Find Median of the data");
 		System.out.println("(5) Find Mode of the data");
-		System.out.println("(6) Find Standard Deviation of the data");
-		System.out.println("(7) Exit");
+		System.out.println("(6) Find Sample Standard Deviation of the data");
+		System.out.println("(7) Find Population Standard Deviation of the data");
+		System.out.println("(8) Exit");
 		return input.nextInt();
 	}
-	
+
 	public static void performOperation(int option) {
 		switch (option) {
 		case 1:
@@ -81,50 +82,55 @@ public class MainMenu {
 			break;
 
 		case 6:
-			findStandardDeviation();
+			findSampleStandardDeviation();
 			break;
-
+		case 7:
+			findPopulationStandardDeviation();
+			break;
 		default:
 			break;
 		}
 	}
-	
+
 	private static void findMinValue() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static void findMaxValue() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static void findMode() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static void findMedian() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	private static void findMean() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	private static void findStandardDeviation() {
+	private static void findSampleStandardDeviation() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	private static void findPopulationStandardDeviation() {
+		// TODO Auto-generated method stub
+
 	}
 
 	public static void generateData(int option) {
-		
+
 	}
-	
-	
-	
+
 	public static void main(String[] args) {
 		MainMenu obj = new MainMenu();
 
