@@ -217,14 +217,17 @@ public class MainMenu {
 	public static void generateData(int option) {
 		switch (option) {
 		case 1:
-			System.out.print("Enter file name with its location:");
+			System.out.print("Please keep the file in project and enter the name");
 			String fileName = input.next();
-			File file = new File(fileName);
+			File file = new File("./"+fileName);
 			try {
 				BufferedReader br = new BufferedReader(new FileReader(file));
 				String a;
-				while ((a = br.readLine()) != null)
+				while ((a = br.readLine()) != null) {
 					System.out.println(a);
+					Integer value = Integer.parseInt(a);
+					data.add(value);
+				}
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
