@@ -176,13 +176,15 @@ public class MainMenu {
 		}
 	}
 
-	private static void findMean() {
+	private static float findMean() {
 		// TODO Auto-generated method stub
 		int mean = 0;
 		for (int i = 0; i < data.size(); i++) {
 			mean += data.get(i);
 		}
-		System.out.println("Mean Value:" + (mean / data.size()));
+		float meanvalue = mean / data.size();
+		System.out.println("Mean Value:" + meanvalue);
+		return meanvalue;
 	}
 
 	private static void findSampleStandardDeviation() {
@@ -203,15 +205,33 @@ public class MainMenu {
 			}
 			absolute_mean+=absolute;
 		}
-		
+
 		System.out.println("Mean Absolute Deviation:" + (absolute_mean/data.size()));
 	}
 
+
+	public static float square(float a) {
+		return a*a;
+	}
 	
-
+	public static float square_root(float a) {
+		float temp;
+		float sqrt = a / 2;
+		do {
+			temp = sqrt;
+			sqrt = (temp + (a / temp)) / 2;
+		} while ((temp - sqrt) != 0);
+	 
+		return sqrt;
+	}
+	
 	private static void findPopulationStandardDeviation() {
-		// TODO Auto-generated method stub
-
+		float meanvalue = findMean();
+		float variance=0;
+		for (int i = 0; i < data.size(); i++) 
+			variance += square(data.get(i)-meanvalue);
+		variance = variance/data.size();
+		System.out.println("Standard Deviation:" + square_root(variance));
 	}
 
 	public static void generateData(int option) {
