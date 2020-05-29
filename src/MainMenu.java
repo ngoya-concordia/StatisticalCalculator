@@ -227,11 +227,11 @@ public class MainMenu {
 	
 	private static void findPopulationStandardDeviation() {
 		float meanvalue = findMean();
-		float variance=0;
+		float standard_deviation=0;
 		for (int i = 0; i < data.size(); i++) 
-			variance += square(data.get(i)-meanvalue);
-		variance = variance/data.size();
-		System.out.println("Standard Deviation:" + square_root(variance));
+			standard_deviation += square(data.get(i)-meanvalue);
+		standard_deviation = standard_deviation/data.size();
+		System.out.println("Standard Deviation:" + square_root(standard_deviation));
 	}
 
 	public static void generateData(int option) {
