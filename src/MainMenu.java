@@ -23,7 +23,7 @@ public class MainMenu {
 			while (userSelection != 3) {
 				generateData(userSelection);
 				option = displayOption();
-				while (option != 8) {
+				while (option != 9) {
 					performOperation(option);
 					System.out.println("\n\n\n---------------Continue------------------");
 					option = displayOption();
@@ -69,7 +69,8 @@ public class MainMenu {
 		System.out.println("(5) Find Mode of the data");
 		System.out.println("(6) Find Sample Standard Deviation of the data");
 		System.out.println("(7) Find Population Standard Deviation of the data");
-		System.out.println("(8) Exit");
+		System.out.println("(8) Find Variance of the data");
+		System.out.println("(9) Exit");
 		return input.nextInt();
 	}
 
@@ -100,6 +101,8 @@ public class MainMenu {
 		case 7:
 			findPopulationStandardDeviation();
 			break;
+		case 8:
+			findVariance();
 		default:
 			break;
 		}
@@ -169,33 +172,34 @@ public class MainMenu {
 	private static void findMedian() {
 		// TODO Auto-generated method stub
 		Collections.sort(data);
-		if (data.size() % 2 == 0) {
-			System.out.println("Median Value: " + (data.get(data.size() / 2) + data.get((data.size() / 2) - 1) / 2));
+		if ((data.size() % 2) != 0) {
+			System.out.println("Median Value: " + (double)data.get(data.size() / 2));
 		} else {
-			System.out.println("Median Value: " + data.get(data.size() / 2));
+			System.out.println("Median Value: " + (double)((data.get((data.size()/ 2) -1) + (data.get(data.size() / 2))) / 2.0));
 		}
 	}
 
-	private static float findMean() {
+	private static double findMean() {
 		// TODO Auto-generated method stub
-		int mean = 0;
+		double mean = 0;
+		double meanvalue=0;
 		for (int i = 0; i < data.size(); i++) {
 			mean += data.get(i);
 		}
-		float meanvalue = mean / data.size();
-		System.out.println("Mean Value:" + meanvalue);
+	     meanvalue = mean / data.size();
+		System.out.println("Mean Value:" +meanvalue);
 		return meanvalue;
 	}
 
 	private static void findSampleStandardDeviation() {
 		// TODO Auto-generated method stub
-		int mean = 0;
+		double mean = 0;
 		for (int i = 0; i < data.size(); i++) {
 			mean += data.get(i);
 		}
-		float meanvalue=(mean / data.size());
-		float absolute_mean=0;
-		float absolute;
+		double meanvalue=(mean / data.size());
+		double absolute_mean=0;
+		double absolute;
 		for (int i = 0; i < data.size(); i++) 
 		{
 			absolute=(data.get(i)-meanvalue);
@@ -210,13 +214,13 @@ public class MainMenu {
 	}
 
 
-	public static float square(float a) {
+	public static double square(double a) {
 		return a*a;
 	}
 	
-	public static float square_root(float a) {
-		float temp;
-		float sqrt = a / 2;
+	public static double square_root(double a) {
+		double temp;
+		double sqrt = a / 2;
 		do {
 			temp = sqrt;
 			sqrt = (temp + (a / temp)) / 2;
@@ -226,8 +230,8 @@ public class MainMenu {
 	}
 	
 	private static void findPopulationStandardDeviation() {
-		float meanvalue = findMean();
-		float standard_deviation=0;
+		double meanvalue = findMean();
+		double standard_deviation=0;
 		for (int i = 0; i < data.size(); i++) 
 			standard_deviation += square(data.get(i)-meanvalue);
 		standard_deviation = standard_deviation/data.size();
@@ -267,6 +271,17 @@ public class MainMenu {
 			System.out.println(data);
 			break;
 		}
+	}
+	
+	public static double findVariance() 
+	{ 
+			double mean = findMean();
+			double sd = 0; 
+			for (int j = 0; j < data.size(); j++)  
+				sd += (data.get(j) - mean) *  (data.get(j) - mean); 
+			System.out.println("Variance:" + (double)sd / data.size());
+			return (double)sd / data.size(); 
+			
 	}
 
 	public static void main(String[] args) {
