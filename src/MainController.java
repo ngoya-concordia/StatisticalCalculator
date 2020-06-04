@@ -12,12 +12,12 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class MainMenu {
+public class MainController {
 	static Scanner input = new Scanner(System.in);
 	static ArrayList<Integer> data = new ArrayList<Integer>();
 
-	public MainMenu() {
-		try {
+	public MainController() {
+		/*try {
 			int userSelection = displayMainMenu();
 			int option;
 			while (userSelection != 3) {
@@ -34,7 +34,7 @@ public class MainMenu {
 			System.out.println("\n\n--------------EXIT THE SYSTEM----------------");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class MainMenu {
 		return input.nextInt();
 	}
 
-	public static void performOperation(int option) {
+	public void performOperation(int option) {
 		switch (option) {
 		case 1:
 			findMinValue();
@@ -108,7 +108,7 @@ public class MainMenu {
 		}
 	}
 
-	private static void findMinValue() {
+	public int findMinValue() {
 		// TODO Auto-generated method stub
 		int min = Integer.MAX_VALUE;
 		for (int i = 0; i < data.size(); i++) {
@@ -117,9 +117,10 @@ public class MainMenu {
 			}
 		}
 		System.out.println("Mininum Value:" + min);
+		return min;
 	}
 
-	private static void findMaxValue() {
+	public int findMaxValue() {
 		// TODO Auto-generated method stub
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < data.size(); i++) {
@@ -128,9 +129,10 @@ public class MainMenu {
 			}
 		}
 		System.out.println("Maximum Value:" + max);
+		return max;
 	}
 
-	private static void findMode() {
+	public String findMode() {
 		// TODO Auto-generated method stub
 		HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>();
 		for (Integer integer : data) {
@@ -167,19 +169,25 @@ public class MainMenu {
 				output = output.concat(mapping.getKey() + ",");
 		}
 		System.out.println("Mode Value: " + output.substring(0, output.length() - 1));
+		
+		return output.substring(0, output.length() - 1);
 	}
 
-	private static void findMedian() {
+	public double findMedian() {
 		// TODO Auto-generated method stub
 		Collections.sort(data);
+		double median;
 		if ((data.size() % 2) != 0) {
-			System.out.println("Median Value: " + (double)data.get(data.size() / 2));
+			median = (double)data.get(data.size() / 2);
+			
 		} else {
-			System.out.println("Median Value: " + (double)((data.get((data.size()/ 2) -1) + (data.get(data.size() / 2))) / 2.0));
+			median =(double)((data.get((data.size()/ 2) -1) + (data.get(data.size() / 2))) / 2.0);
 		}
+		System.out.println("Median Value: " + median);
+		return median;
 	}
 
-	private static double findMean() {
+	public double findMean() {
 		// TODO Auto-generated method stub
 		double mean = 0;
 		double meanvalue=0;
@@ -191,7 +199,7 @@ public class MainMenu {
 		return meanvalue;
 	}
 
-	private static void findSampleStandardDeviation() {
+	public double findSampleStandardDeviation() {
 		// TODO Auto-generated method stub
 		double mean = 0;
 		for (int i = 0; i < data.size(); i++) {
@@ -211,14 +219,15 @@ public class MainMenu {
 		}
 
 		System.out.println("Mean Absolute Deviation:" + (absolute_mean/data.size()));
+		return (absolute_mean/data.size());
 	}
 
 
-	public static double square(double a) {
+	public  double square(double a) {
 		return a*a;
 	}
 	
-	public static double square_root(double a) {
+	public  double square_root(double a) {
 		double temp;
 		double sqrt = a / 2;
 		do {
@@ -229,18 +238,31 @@ public class MainMenu {
 		return sqrt;
 	}
 	
-	private static void findPopulationStandardDeviation() {
+	public double findPopulationStandardDeviation() {
 		double meanvalue = findMean();
 		double standard_deviation=0;
 		for (int i = 0; i < data.size(); i++) 
 			standard_deviation += square(data.get(i)-meanvalue);
 		standard_deviation = standard_deviation/data.size();
 		System.out.println("Standard Deviation:" + square_root(standard_deviation));
+		return square_root(standard_deviation);
 	}
 
-	public static void generateData(int option) {
-		switch (option) {
-		case 1:
+	public void generateData() {
+		
+			Random rand = new Random();
+			int upperbound = 1000;
+			int i = 0;
+			while (i < upperbound) {
+				data.add(rand.nextInt(upperbound));
+				i++;
+			}
+			System.out.println(data);
+			
+	}
+	
+	public  void loadData() {
+	
 			System.out.print("Please keep the file in project and enter the name");
 			String fileName = input.next();
 			File file = new File("./"+fileName);
@@ -258,22 +280,10 @@ public class MainMenu {
 
 			}
 
-			break;
-
-		case 2:
-			Random rand = new Random();
-			int upperbound = 1000;
-			int i = 0;
-			while (i < upperbound) {
-				data.add(rand.nextInt(upperbound));
-				i++;
-			}
-			System.out.println(data);
-			break;
-		}
+			
 	}
 	
-	public static double findVariance() 
+	public  double findVariance() 
 	{ 
 			double mean = findMean();
 			double sd = 0; 
@@ -284,9 +294,9 @@ public class MainMenu {
 			
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		MainMenu obj = new MainMenu();
 
-	}
+	}*/
 
 }
