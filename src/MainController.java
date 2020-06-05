@@ -12,66 +12,12 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class MainController {
+public class MainController implements IOperations, IGenerateLoadData {
 	static Scanner input = new Scanner(System.in);
 	static ArrayList<Integer> data = new ArrayList<Integer>();
 
 	public MainController() {
-		/*try {
-			int userSelection = displayMainMenu();
-			int option;
-			while (userSelection != 3) {
-				generateData(userSelection);
-				option = displayOption();
-				while (option != 9) {
-					performOperation(option);
-					System.out.println("\n\n\n---------------Continue------------------");
-					option = displayOption();
-				}
-				System.out.println("\n\n\n---------------Continue------------------");
-				userSelection = displayMainMenu();
-			}
-			System.out.println("\n\n--------------EXIT THE SYSTEM----------------");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
-	}
 
-	/**
-	 * Display menu to the user
-	 * 
-	 * @return
-	 */
-	private int displayMainMenu() {
-		System.out.println("--------------------------------");
-		System.out.println("|WELCOME TO THE SYSTEM . Please choose what would you like to do|");
-		System.out.println("--------------------------------");
-		System.out.println("(1) Read a file/Load the data.");
-		System.out.println("(2) Generate random data");
-		System.out.println("(3) Exit the process.");
-		System.out.print("Please provide your input from 1 to 3 : ");
-		return input.nextInt();
-	}
-
-	/**
-	 * Display menu to the user
-	 * 
-	 * @return
-	 */
-	private int displayOption() {
-		System.out.println("--------------------------------");
-		System.out.println("Please choose your operation");
-		System.out.println("--------------------------------");
-		System.out.println("(1) Find Minimum value of the data.");
-		System.out.println("(2) Find Maximum value of the data");
-		System.out.println("(3) Find Mean of the data");
-		System.out.println("(4) Find Median of the data");
-		System.out.println("(5) Find Mode of the data");
-		System.out.println("(6) Find Sample Standard Deviation of the data");
-		System.out.println("(7) Find Population Standard Deviation of the data");
-		System.out.println("(8) Find Variance of the data");
-		System.out.println("(9) Exit");
-		return input.nextInt();
 	}
 
 	public void performOperation(int option) {
@@ -96,10 +42,10 @@ public class MainController {
 			break;
 
 		case 6:
-			findSampleStandardDeviation();
+			findMeanAbsoluteDeviation();
 			break;
 		case 7:
-			findPopulationStandardDeviation();
+			findStandardDeviation();
 			break;
 		case 8:
 			findVariance();
@@ -169,7 +115,7 @@ public class MainController {
 				output = output.concat(mapping.getKey() + ",");
 		}
 		System.out.println("Mode Value: " + output.substring(0, output.length() - 1));
-		
+
 		return output.substring(0, output.length() - 1);
 	}
 
@@ -178,10 +124,10 @@ public class MainController {
 		Collections.sort(data);
 		double median;
 		if ((data.size() % 2) != 0) {
-			median = (double)data.get(data.size() / 2);
-			
+			median = (double) data.get(data.size() / 2);
+
 		} else {
-			median =(double)((data.get((data.size()/ 2) -1) + (data.get(data.size() / 2))) / 2.0);
+			median = (double) ((data.get((data.size() / 2) - 1) + (data.get(data.size() / 2))) / 2.0);
 		}
 		System.out.println("Median Value: " + median);
 		return median;
@@ -190,113 +136,103 @@ public class MainController {
 	public double findMean() {
 		// TODO Auto-generated method stub
 		double mean = 0;
-		double meanvalue=0;
+		double meanvalue = 0;
 		for (int i = 0; i < data.size(); i++) {
 			mean += data.get(i);
 		}
-	     meanvalue = mean / data.size();
-		System.out.println("Mean Value:" +meanvalue);
+		meanvalue = mean / data.size();
+		System.out.println("Mean Value:" + meanvalue);
 		return meanvalue;
 	}
 
-	public double findSampleStandardDeviation() {
+	public double findMeanAbsoluteDeviation() {
 		// TODO Auto-generated method stub
 		double mean = 0;
 		for (int i = 0; i < data.size(); i++) {
 			mean += data.get(i);
 		}
-		double meanvalue=(mean / data.size());
-		double absolute_mean=0;
+		double meanvalue = (mean / data.size());
+		double absolute_mean = 0;
 		double absolute;
-		for (int i = 0; i < data.size(); i++) 
-		{
-			absolute=(data.get(i)-meanvalue);
-			if(absolute<0)
-			{
-				absolute=absolute*(-1);
+		for (int i = 0; i < data.size(); i++) {
+			absolute = (data.get(i) - meanvalue);
+			if (absolute < 0) {
+				absolute = absolute * (-1);
 			}
-			absolute_mean+=absolute;
+			absolute_mean += absolute;
 		}
 
-		System.out.println("Mean Absolute Deviation:" + (absolute_mean/data.size()));
-		return (absolute_mean/data.size());
+		System.out.println("Mean Absolute Deviation:" + (absolute_mean / data.size()));
+		return (absolute_mean / data.size());
 	}
 
-
-	public  double square(double a) {
-		return a*a;
+	public double square(double a) {
+		return a * a;
 	}
-	
-	public  double square_root(double a) {
+
+	public double square_root(double a) {
 		double temp;
 		double sqrt = a / 2;
 		do {
 			temp = sqrt;
 			sqrt = (temp + (a / temp)) / 2;
 		} while ((temp - sqrt) != 0);
-	 
+
 		return sqrt;
 	}
-	
-	public double findPopulationStandardDeviation() {
+
+	public double findStandardDeviation() {
 		double meanvalue = findMean();
-		double standard_deviation=0;
-		for (int i = 0; i < data.size(); i++) 
-			standard_deviation += square(data.get(i)-meanvalue);
-		standard_deviation = standard_deviation/data.size();
+		double standard_deviation = 0;
+		for (int i = 0; i < data.size(); i++)
+			standard_deviation += square(data.get(i) - meanvalue);
+		standard_deviation = standard_deviation / data.size();
 		System.out.println("Standard Deviation:" + square_root(standard_deviation));
 		return square_root(standard_deviation);
 	}
 
-	public void generateData() {
-		
-			Random rand = new Random();
-			int upperbound = 1000;
-			int i = 0;
-			while (i < upperbound) {
-				data.add(rand.nextInt(upperbound));
-				i++;
+	public void generateRandomData() {
+
+		Random rand = new Random();
+		int upperbound = 1000;
+		int i = 0;
+		while (i < upperbound) {
+			data.add(rand.nextInt(upperbound));
+			i++;
+		}
+		System.out.println(data);
+
+	}
+
+	public void loadData() {
+
+		System.out.print("Please keep the file in project and enter the name");
+		String fileName = input.next();
+		File file = new File("./" + fileName);
+		try {
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String a;
+			while ((a = br.readLine()) != null) {
+				System.out.println(a);
+				Integer value = Integer.parseInt(a);
+				data.add(value);
 			}
-			System.out.println(data);
-			
-	}
-	
-	public  void loadData() {
-	
-			System.out.print("Please keep the file in project and enter the name");
-			String fileName = input.next();
-			File file = new File("./"+fileName);
-			try {
-				BufferedReader br = new BufferedReader(new FileReader(file));
-				String a;
-				while ((a = br.readLine()) != null) {
-					System.out.println(a);
-					Integer value = Integer.parseInt(a);
-					data.add(value);
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 
-			}
+		}
 
-			
-	}
-	
-	public  double findVariance() 
-	{ 
-			double mean = findMean();
-			double sd = 0; 
-			for (int j = 0; j < data.size(); j++)  
-				sd += (data.get(j) - mean) *  (data.get(j) - mean); 
-			System.out.println("Variance:" + (double)sd / data.size());
-			return (double)sd / data.size(); 
-			
 	}
 
-	/*public static void main(String[] args) {
-		MainMenu obj = new MainMenu();
+	public double findVariance() {
+		double mean = findMean();
+		double sd = 0;
+		for (int j = 0; j < data.size(); j++)
+			sd += (data.get(j) - mean) * (data.get(j) - mean);
+		System.out.println("Variance:" + (double) sd / data.size());
+		return (double) sd / data.size();
 
-	}*/
+	}
 
 }
