@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -142,6 +144,7 @@ public class MainController implements IOperations, IGenerateLoadData {
 		}
 		meanvalue = mean / data.size();
 		System.out.println("Mean Value:" + meanvalue);
+		meanvalue = (long)(meanvalue * 100000)/100000.0;
 		return meanvalue;
 	}
 
@@ -163,7 +166,9 @@ public class MainController implements IOperations, IGenerateLoadData {
 		}
 
 		System.out.println("Mean Absolute Deviation:" + (absolute_mean / data.size()));
-		return (absolute_mean / data.size());
+		absolute_mean = absolute_mean / data.size();
+		absolute_mean = (long)(absolute_mean * 100000)/100000.0;
+		return absolute_mean;
 	}
 
 	public double square(double a) {
@@ -177,7 +182,6 @@ public class MainController implements IOperations, IGenerateLoadData {
 			temp = sqrt;
 			sqrt = (temp + (a / temp)) / 2;
 		} while ((temp - sqrt) != 0);
-
 		return sqrt;
 	}
 
@@ -188,7 +192,9 @@ public class MainController implements IOperations, IGenerateLoadData {
 			standard_deviation += square(data.get(i) - meanvalue);
 		standard_deviation = standard_deviation / data.size();
 		System.out.println("Standard Deviation:" + square_root(standard_deviation));
-		return square_root(standard_deviation);
+		standard_deviation = square_root(standard_deviation);
+		standard_deviation = (long)(standard_deviation * 100000) / 100000.0;
+		return standard_deviation;
 	}
 
 	public void generateRandomData() {
@@ -201,7 +207,14 @@ public class MainController implements IOperations, IGenerateLoadData {
 			i++;
 		}
 		System.out.println(data);
-
+		try {
+	      FileWriter myWriter = new FileWriter("RandomData.txt");
+	      myWriter.write(String.valueOf(data));
+	      myWriter.close();
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
 	}
 
 	public void loadData() {
@@ -231,7 +244,9 @@ public class MainController implements IOperations, IGenerateLoadData {
 		for (int j = 0; j < data.size(); j++)
 			sd += (data.get(j) - mean) * (data.get(j) - mean);
 		System.out.println("Variance:" + (double) sd / data.size());
-		return (double) sd / data.size();
+		sd= (double) sd / data.size();
+		sd = ((long)(sd * 100000)) /100000.0;
+		return sd;
 
 	}
 
