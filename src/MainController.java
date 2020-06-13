@@ -150,11 +150,7 @@ public class MainController implements IOperations, IGenerateLoadData {
 
 	public double findMeanAbsoluteDeviation() {
 		// TODO Auto-generated method stub
-		double mean = 0;
-		for (int i = 0; i < data.size(); i++) {
-			mean += data.get(i);
-		}
-		double meanvalue = (mean / data.size());
+		double meanvalue = findMean();
 		double absolute_mean = 0;
 		double absolute;
 		for (int i = 0; i < data.size(); i++) {
