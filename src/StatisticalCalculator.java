@@ -7,6 +7,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 
+/**
+ * This class is defined for the GUI for the statistical calculator 
+ * @author Rohit and Nancy
+ */
 class StatisticalCalculator extends JFrame implements ActionListener {
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HEIGHT = 500;
@@ -46,6 +50,9 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 
 	}
 
+	/**
+	 * This method displays the buttons where the user can select the generate random data or upload it from an existing file 
+	 */
 	void addInputDataViews() {
 
 		String dataButtons[] = { "Generate Random", "Upload Data" };
@@ -61,6 +68,10 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 
 	}
+	
+	/**
+	 * This method displays the buttons which displays the several operations that need to be performed on the data set  
+	 */
 
 	void addCalculatorButtons() {
 		buttonPanel = new JPanel();
@@ -82,7 +93,7 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 
 	}
-
+	
 	void addMainWindow() {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
@@ -100,6 +111,12 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		obj = new MainController();
 		addMainWindow();
 	}
+	
+	/**
+	 * This method displays the buttons of the several operations and displays the values on the GUI when certain operations are selected 
+	 * else it will take input from the text file 
+	 * and the output is displayed on the text field 
+	 */
 
 	public void actionPerformed(ActionEvent event) {
 		// source is from button
@@ -147,7 +164,10 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 			addOutput();
 		}
 	}
-
+	
+	/**
+	 * This method displays the output when the editable is false and there wouldn't be any appending, the text will be added manually 
+	 */
 	public void addInput(String line) {
 		// appending pressed keys to TextField
 		// editable will be false if result is displayed
@@ -164,6 +184,10 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * This method converts the string into an expression 
+	 */
+	
 	public void addOutput() {
 		double output = 0;
 
@@ -189,7 +213,9 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 		editable = false;
 	}
-
+	/**
+	 * This is the main method
+	 */
 	// main method
 	public static void main(String[] args) {
 		StatisticalCalculator calculator = new StatisticalCalculator();
