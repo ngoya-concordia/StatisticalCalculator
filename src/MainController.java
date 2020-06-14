@@ -13,24 +13,36 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
 /**
- * This is the  Main controller class which has all the operations that needs to be performed on the given data set
- * @author  Rohit, Aman, Nancy, Chitra, Shabnam and Akhila
+ * This is the Main controller class which has all the operations that needs to
+ * be performed on the given data set
+ * 
+ * @author Team D
  */
 public class MainController implements IOperations, IGenerateLoadData {
-	static Scanner input = new Scanner(System.in);
+	/** The list of integer values. */
 	static ArrayList<Integer> data = new ArrayList<Integer>();
 
+	/**
+	 * Initialize the Main Controller
+	 */
 	public MainController() {
 
 	}
+
+	/**
+	 * Method to perform operation based on option provided.
+	 * 
+	 * @param option : The value of the option which can be in the range of 1-8.
+	 */
 
 	public void performOperation(int option) {
 		switch (option) {
 		case 1:
 			findMinValue();
 			break;
-			
+
 		case 2:
 			findMaxValue();
 			break;
@@ -59,12 +71,14 @@ public class MainController implements IOperations, IGenerateLoadData {
 			break;
 		}
 	}
-/**
- * This method returns the maximum value of the given data set
- * @author Aman
- */
+
+	/**
+	 * Method to find the minimum value of the given data set.
+	 * 
+	 * @return returns the Minimum value as integer.
+	 */
 	public int findMinValue() {
-		
+
 		int min = Integer.MAX_VALUE;
 		for (int i = 0; i < data.size(); i++) {
 			if (min > data.get(i)) {
@@ -74,13 +88,15 @@ public class MainController implements IOperations, IGenerateLoadData {
 		System.out.println("Mininum Value:" + min);
 		return min;
 	}
+
 	/**
-	 * This method returns the minimum value of the given data set
-	 * @author Aman
+	 * Method to find the maximum value of the given data set.
+	 * 
+	 * @return returns the maximum value as integer.
 	 */
 
 	public int findMaxValue() {
-		
+
 		int max = Integer.MIN_VALUE;
 		for (int i = 0; i < data.size(); i++) {
 			if (max < data.get(i)) {
@@ -90,12 +106,15 @@ public class MainController implements IOperations, IGenerateLoadData {
 		System.out.println("Maximum Value:" + max);
 		return max;
 	}
+
 	/**
-	 * This method returns the mode value of the given data set
-	 * @author  Rohit
+	 * This method finds the mode value of the given data set.
+	 * 
+	 * @return Return the Mode value in the string format.
+	 * 
 	 */
 	public String findMode() {
-		
+
 		HashMap<Integer, Integer> hashMap = new HashMap<Integer, Integer>();
 		for (Integer integer : data) {
 			if (hashMap.containsKey(integer)) {
@@ -134,12 +153,14 @@ public class MainController implements IOperations, IGenerateLoadData {
 
 		return output.substring(0, output.length() - 1);
 	}
+
 	/**
-	 * This method returns the median value of the given data set
-	 * @author  Rohit, Aman
+	 * This method finds the median value of the given data set.
+	 * 
+	 * @return Returns the Median of the data in double.
 	 */
 	public double findMedian() {
-		
+
 		Collections.sort(data);
 		double median;
 		if ((data.size() % 2) != 0) {
@@ -151,9 +172,11 @@ public class MainController implements IOperations, IGenerateLoadData {
 		System.out.println("Median Value: " + median);
 		return median;
 	}
+
 	/**
-	 * This method returns the mean value of the given data set
-	 * @author  Rohit, Aman
+	 * This method finds the mean value of the given data set.
+	 * 
+	 * @return returns the Mean value of the data in double.
 	 */
 	public double findMean() {
 		// TODO Auto-generated method stub
@@ -164,15 +187,18 @@ public class MainController implements IOperations, IGenerateLoadData {
 		}
 		meanvalue = mean / data.size();
 		System.out.println("Mean Value:" + meanvalue);
-		meanvalue = (long)(meanvalue * 100000)/100000.0;
+		meanvalue = (long) (meanvalue * 100000) / 100000.0;
 		return meanvalue;
 	}
+
 	/**
-	 * This method returns the Mean absolute deviation value of the given data set
-	 * @author Chitra
+	 * This method finds the Mean absolute deviation value of the given data set.
+	 * 
+	 * @return returns the mean absolute deviation of the data in double.
+	 * 
 	 */
 	public double findMeanAbsoluteDeviation() {
-	
+
 		double meanvalue = findMean();
 		double absolute_mean = 0;
 		double absolute;
@@ -186,24 +212,27 @@ public class MainController implements IOperations, IGenerateLoadData {
 
 		System.out.println("Mean Absolute Deviation:" + (absolute_mean / data.size()));
 		absolute_mean = absolute_mean / data.size();
-		absolute_mean = (long)(absolute_mean * 100000)/100000.0;
+		absolute_mean = (long) (absolute_mean * 100000) / 100000.0;
 		return absolute_mean;
 	}
+
 	/**
-	 * This method returns the square value of the given data set
-	 * @author Shabnam
-	 * @param a It is a numerical value
-	 *  
+	 * This method finds the square value of the given parameter.
+	 * 
+	 * @param a double value which needs to be squared.
+	 * @return returns the square of the given value in the form of double.
 	 */
 	public double square(double a) {
 		return a * a;
 	}
+
 	/**
-	 * This method returns the square root value of the given data set
-	 * @author  Shabnam
-	 * @param a It is an numerical value
+	 * This method finds the square root value of the given parameter.
+	 * 
+	 * @param a double value whose square root needs to be calculated.
+	 * @return returns the square root of the given value in the form of double.
 	 */
-	public double square_root(double a) {
+	public double squareRoot(double a) {
 		double temp;
 		double sqrt = a / 2;
 		do {
@@ -212,9 +241,11 @@ public class MainController implements IOperations, IGenerateLoadData {
 		} while ((temp - sqrt) != 0);
 		return sqrt;
 	}
+
 	/**
-	 * This method returns the Standard deviation value of the given data set
-	 * @author Shabnam, Chitra
+	 * This method finds the Standard deviation value of the given data set.
+	 * 
+	 * @return returns the standard deviation in the form of double.
 	 */
 	public double findStandardDeviation() {
 		double meanvalue = findMean();
@@ -222,17 +253,17 @@ public class MainController implements IOperations, IGenerateLoadData {
 		for (int i = 0; i < data.size(); i++)
 			standard_deviation += square(data.get(i) - meanvalue);
 		standard_deviation = standard_deviation / data.size();
-		System.out.println("Standard Deviation:" + square_root(standard_deviation));
-		standard_deviation = square_root(standard_deviation);
-		standard_deviation = (long)(standard_deviation * 100000) / 100000.0;
+		System.out.println("Standard Deviation:" + squareRoot(standard_deviation));
+		standard_deviation = squareRoot(standard_deviation);
+		standard_deviation = (long) (standard_deviation * 100000) / 100000.0;
 		return standard_deviation;
 	}
+
 	/**
-	 * This method gives us the random values for all the operations that needs to be performed
-	 * @author Rohit, Aman, Nancy
+	 * This method generates the 1000 integral random values
 	 */
 	public void generateRandomData() {
-
+		data.clear();
 		Random rand = new Random();
 		int upperbound = 1000;
 		int i = 0;
@@ -242,23 +273,24 @@ public class MainController implements IOperations, IGenerateLoadData {
 		}
 		System.out.println(data);
 		try {
-	      FileWriter myWriter = new FileWriter("RandomData.txt");
-	      myWriter.write(String.valueOf(data));
-	      myWriter.close();
-	    } catch (IOException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
+			FileWriter myWriter = new FileWriter("RandomData.txt");
+			myWriter.write(String.valueOf(data));
+			myWriter.close();
+		} catch (IOException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
 	}
-	/** 
-	 * This method loads the data from the text file when the user wants to compute the operations on the existing data set 
-	 * @author Rohit, Aman, Nancy
-	 */
-	public void loadData() {
 
-		System.out.print("Please keep the file in project and enter the name");
-		String fileName = input.next();
-		File file = new File("./" + fileName);
+	/**
+	 * This method loads the data from the text file when the user wants to compute
+	 * the operations on the existing data set.
+	 * 
+	 * @param file in which the data exists.
+	 */
+
+	public void loadData(File file) {
+		data.clear();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));
 			String a;
@@ -274,9 +306,11 @@ public class MainController implements IOperations, IGenerateLoadData {
 		}
 
 	}
+
 	/**
-	 * This method returns the variance of the given data set
-	 * @author  Akhila 
+	 * This method finds the variance of the given data set.
+	 * 
+	 * @return returns the computed variance in the form of double.
 	 */
 	public double findVariance() {
 		double mean = findMean();
@@ -284,8 +318,8 @@ public class MainController implements IOperations, IGenerateLoadData {
 		for (int j = 0; j < data.size(); j++)
 			sd += (data.get(j) - mean) * (data.get(j) - mean);
 		System.out.println("Variance:" + (double) sd / data.size());
-		sd= (double) sd / data.size();
-		sd = ((long)(sd * 100000)) /100000.0;
+		sd = (double) sd / data.size();
+		sd = ((long) (sd * 100000)) / 100000.0;
 		return sd;
 
 	}

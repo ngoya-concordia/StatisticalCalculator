@@ -1,4 +1,9 @@
-
+/**
+ * Interface to perform operations on the data.
+ * 
+ * @author Team D
+ *
+ */
 public interface IOperations {
 	public int findMinValue();
 

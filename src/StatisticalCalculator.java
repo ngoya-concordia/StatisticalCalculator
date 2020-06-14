@@ -1,22 +1,41 @@
 
-import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.script.ScriptEngineManager;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 /**
- * This class is defined for the GUI for the statistical calculator 
- * @author Rohit and Nancy
+ * This class is defined for the GUI for the statistical calculator
+ * 
+ * @author Team D
  */
 class StatisticalCalculator extends JFrame implements ActionListener {
+	/** width of the Main window */
 	private static final int FRAME_WIDTH = 450;
-	private static final int FRAME_HEIGHT = 500;
+	/** height of the Main window */
+	private static final int FRAME_HEIGHT = 450;
+	/** x-coordinate of the Main Window */
 	private static final int FRAME_X = 150;
+	/** y-coordinate of the Main Window */
 	private static final int FRAME_Y = 100;
-
+	/**   */
 	private JPanel buttonPanel;
 	private JPanel dataPanel;
 	private JPanel inputOutputPanel;
@@ -27,6 +46,9 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 
 	MainController obj = null;
 
+	/**
+	 * This method adds the output view of the calculator.
+	 */
 	void addOutputView() {
 		inputOutputPanel = new JPanel();
 		inputOutputPanel.setLayout(new FlowLayout());
@@ -51,26 +73,29 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * This method displays the buttons where the user can select the generate random data or upload it from an existing file 
+	 * This method displays the buttons where the user can select the generate
+	 * random data, upload data from an existing file and clear data.
 	 */
 	void addInputDataViews() {
 
-		String dataButtons[] = { "Generate Random", "Upload Data" };
+		String dataButtons[] = { "Generate Random", "Upload Data", "Clear" };
 		dataPanel = new JPanel();
-		dataPanel.setLayout(new GridLayout(1, 2, 5, 5));
+		dataPanel.setLayout(new GridLayout(1, 3, 5, 5));
 		dataPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// adding special buttons for buttons array
 		for (String i : dataButtons) {
 			JButton button = new JButton(i);
+			button.setPreferredSize(new Dimension(110, 30));
 			button.addActionListener(this);
 			dataPanel.add(button);
 		}
 
 	}
-	
+
 	/**
-	 * This method displays the buttons which displays the several operations that need to be performed on the data set  
+	 * This method displays the buttons which displays the several operations that
+	 * need to be performed on the data set
 	 */
 
 	void addCalculatorButtons() {
@@ -78,11 +103,9 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		buttonPanel.setLayout(new GridLayout(6, 4, 5, 5));
 		buttonPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		// buttons in calculator
 		String buttons[] = { "Min", "Max", "Mean", "Median", "Mode", "Mean Abs Dev", "Std Dev", "Variance", "7", "8",
 				"9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+", };
 
-		// adding buttons for buttons array
 		for (String i : buttons) {
 			JButton button = new JButton(i);
 			button.setMargin(new Insets(2, 2, 2, 2));
@@ -93,7 +116,10 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 
 	}
-	
+
+	/**
+	 * This methods adds the main window screen.
+	 */
 	void addMainWindow() {
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
@@ -107,15 +133,18 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
+	/**
+	 * Initializes the Statistical Calculator.
+	 */
 	public StatisticalCalculator() {
 		obj = new MainController();
 		addMainWindow();
 	}
-	
+
 	/**
-	 * This method displays the buttons of the several operations and displays the values on the GUI when certain operations are selected 
-	 * else it will take input from the text file 
-	 * and the output is displayed on the text field 
+	 * This method displays the buttons of the several operations and displays the
+	 * values on the GUI when certain operations are selected else it will take
+	 * input from the text file and the output is displayed on the text field
 	 */
 
 	public void actionPerformed(ActionEvent event) {
@@ -127,8 +156,20 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 				addOutput();
 			} else if (clickedButton.getText().equalsIgnoreCase("Generate Random")) {
 				obj.generateRandomData();
+				info.setText("Random Data has been generated!");
 			} else if (clickedButton.getText().equalsIgnoreCase("Upload Data")) {
-				obj.loadData();
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(this);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					obj.loadData(selectedFile);
+					System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
+
+				info.setText("Data has been loaded successfully!");
+			} else if (clickedButton.getText().equalsIgnoreCase("Clear")) {
+				info.setText("");
 			} else if (clickedButton.getText().equalsIgnoreCase("Min")) {
 				int min = obj.findMinValue();
 				printResult(String.valueOf(min));
@@ -164,34 +205,29 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 			addOutput();
 		}
 	}
-	
+
 	/**
-	 * This method displays the output when the editable is false and there wouldn't be any appending, the text will be added manually 
+	 * This method displays the output when the editable is false and there wouldn't
+	 * be any appending, the text will be added manually
+	 * 
+	 * @param String data that needs to be displayed.
 	 */
 	public void addInput(String line) {
-		// appending pressed keys to TextField
-		// editable will be false if result is displayed
 		if (editable) {
 			info.setText(info.getText() + line);
-		}
-		// result is on the screen
-		// editable is false
-		// no appending
-		// we will add the text
-		else {
+		} else {
 			info.setText(line);
 			editable = true;
 		}
 	}
 
 	/**
-	 * This method converts the string into an expression 
+	 * This method converts the string into an expression and computes the output.
 	 */
-	
+
 	public void addOutput() {
 		double output = 0;
 
-		// converting string into expression
 		try {
 			ScriptEngineManager mgr = new ScriptEngineManager();
 			ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -202,8 +238,12 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		editable = false;
 	}
 
+	/**
+	 * This method converts the string into an expression and computes the output
+	 * 
+	 * @param val can be evaluated to compute the result.
+	 */
 	public void printResult(String val) {
-		// converting string into expression
 		try {
 			ScriptEngineManager mgr = new ScriptEngineManager();
 			ScriptEngine engine = mgr.getEngineByName("JavaScript");
@@ -213,10 +253,11 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		}
 		editable = false;
 	}
+
 	/**
 	 * This is the main method
 	 */
-	// main method
+
 	public static void main(String[] args) {
 		StatisticalCalculator calculator = new StatisticalCalculator();
 		calculator.setVisible(true);
