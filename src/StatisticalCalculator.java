@@ -23,19 +23,7 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 
 	MainController obj = null;
 
-	public StatisticalCalculator() {
-		obj = new MainController();
-		Container contentPane = getContentPane();
-		contentPane.setLayout(new FlowLayout());
-
-		buttonPanel = new JPanel();
-		buttonPanel.setLayout(new GridLayout(6, 4, 5, 5));
-		buttonPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-		dataPanel = new JPanel();
-		dataPanel.setLayout(new GridLayout(1, 2, 5, 5));
-		dataPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+	void addOutputView() {
 		inputOutputPanel = new JPanel();
 		inputOutputPanel.setLayout(new FlowLayout());
 
@@ -55,12 +43,15 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 		info.setFocusable(false);
 		info.addActionListener(this);
 		inputOutputPanel.add(info);
-		contentPane.add(inputOutputPanel);
 
-		// buttons in calculator
-		String buttons[] = { "Min", "Max", "Mean", "Median", "Mode", "Mean Abs Dev", "Std Dev", "Variance", "7", "8",
-				"9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+", };
+	}
+
+	void addInputDataViews() {
+
 		String dataButtons[] = { "Generate Random", "Upload Data" };
+		dataPanel = new JPanel();
+		dataPanel.setLayout(new GridLayout(1, 2, 5, 5));
+		dataPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		// adding special buttons for buttons array
 		for (String i : dataButtons) {
@@ -69,7 +60,16 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 			dataPanel.add(button);
 		}
 
-		contentPane.add(dataPanel);
+	}
+
+	void addCalculatorButtons() {
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(6, 4, 5, 5));
+		buttonPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		// buttons in calculator
+		String buttons[] = { "Min", "Max", "Mean", "Median", "Mode", "Mean Abs Dev", "Std Dev", "Variance", "7", "8",
+				"9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+", };
 
 		// adding buttons for buttons array
 		for (String i : buttons) {
@@ -81,9 +81,24 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 			buttonPanel.add(button);
 		}
 
+	}
+
+	void addMainWindow() {
+		Container contentPane = getContentPane();
+		contentPane.setLayout(new FlowLayout());
+		addOutputView();
+		addInputDataViews();
+		addCalculatorButtons();
+		contentPane.add(inputOutputPanel);
+		contentPane.add(dataPanel);
 		contentPane.add(buttonPanel);
 
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	}
+
+	public StatisticalCalculator() {
+		obj = new MainController();
+		addMainWindow();
 	}
 
 	public void actionPerformed(ActionEvent event) {
