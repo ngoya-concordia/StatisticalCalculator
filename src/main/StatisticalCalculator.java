@@ -1,3 +1,4 @@
+package main;
 
 import java.awt.Color;
 import java.awt.Container;
@@ -186,10 +187,10 @@ class StatisticalCalculator extends JFrame implements ActionListener {
 				String mode = obj.findMode();
 				printResult(String.valueOf(mode));
 			} else if (clickedButton.getText().equalsIgnoreCase("Mean Abs Dev")) {
-				double meanAbsDev = obj.findStandardDeviation();
+				double meanAbsDev = obj.findMeanAbsoluteDeviation();
 				printResult(String.valueOf(meanAbsDev));
 			} else if (clickedButton.getText().equalsIgnoreCase("Std Dev")) {
-				double stdDev = obj.findMeanAbsoluteDeviation();
+				double stdDev = obj.findStandardDeviation();
 				printResult(String.valueOf(stdDev));
 			} else if (clickedButton.getText().equalsIgnoreCase("Variance")) {
 				double var = obj.findVariance();

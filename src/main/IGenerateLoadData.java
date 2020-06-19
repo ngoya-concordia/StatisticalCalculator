@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 /**
  * Interface to generate and load data.

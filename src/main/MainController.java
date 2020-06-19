@@ -1,3 +1,4 @@
+package main;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,7 +23,7 @@ import java.util.Set;
  */
 public class MainController implements IOperations, IGenerateLoadData {
 	/** The list of integer values. */
-	static ArrayList<Integer> data = new ArrayList<Integer>();
+	public static ArrayList<Integer> data = new ArrayList<Integer>();
 
 	/**
 	 * Initialize the Main Controller
